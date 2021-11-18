@@ -1,0 +1,25 @@
+version: '3.7'
+
+networks:
+  default:
+    external: true
+    name: lb-common
+
+services:
+  pgadmin:
+    image: dpage/pgadmin4
+    deploy:
+      replicas: 1
+      labels:
+        traefik.frontend.rule: "Host:pgadmin4.local.io"
+        traefik.enable: "true"
+        traefik.backend: "pgadmin_back"
+        traefik.port: "80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@test.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - ../data/pgadmin:/var/lib/pgadmin
+    networks:
+      - default
