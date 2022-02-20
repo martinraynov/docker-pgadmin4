@@ -20,6 +20,6 @@ services:
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
       PGADMIN_CONFIG_SERVER_MODE: 'False'
     volumes:
-      - ../data/pgadmin:/var/lib/pgadmin
+      - /srv/pgadmin4/data/pgadmin:/var/lib/pgadmin
     networks:
       - default
